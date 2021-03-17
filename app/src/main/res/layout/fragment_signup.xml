@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignupFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/signupbg"
+        android:layout_width="700dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/toplevel" />
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/signupbg"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="sans-serif"
+        android:text="SIGN UP"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/signuptvname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupbg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="sans-serif"
+        android:text="Name"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:typeface="sans" />
+
+    <EditText
+        android:id="@+id/signupname"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/signupbg"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/edit_round"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_toEndOf="@+id/signuptvname"
+        android:layout_toRightOf="@+id/signuptvname" />
+
+    <TextView
+        android:id="@+id/signuptvemail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signuptvname"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:text="Email"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:typeface="sans" />
+
+    <EditText
+        android:id="@+id/signupemail"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/signupname"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/edit_round"
+        android:inputType="textEmailAddress"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_toEndOf="@+id/signuptvemail"
+        android:layout_toRightOf="@+id/signuptvemail" />
+
+    <TextView
+        android:id="@+id/signuptvpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signuptvemail"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:text="Password"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:typeface="sans" />
+
+    <EditText
+        android:id="@+id/signuppass"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/signupemail"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/edit_round"
+        android:inputType="textPassword"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_toEndOf="@+id/signuptvpass"
+        android:layout_toRightOf="@+id/signuptvpass" />
+
+    <TextView
+        android:id="@+id/signuptvconfpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signuptvpass"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:text="Conform\nPassword"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:typeface="sans" />
+
+    <EditText
+        android:id="@+id/signupconfpass"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/signuppass"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/edit_round"
+        android:inputType="textPassword"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_toEndOf="@+id/signuptvconfpass"
+        android:layout_toRightOf="@+id/signuptvconfpass" />
+
+    <Button
+        android:id="@+id/signupbutton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/signuptvconfpass"
+        android:focusedByDefault="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/button_round"
+        android:textColor="#50000000"
+        android:text="SIGNUP"
+        android:textSize="25sp"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:text="Or"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/alreadyaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/or"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:text="Already have an acount"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/signupskip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/alreadyaccount"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:text="SKIP >>"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+</RelativeLayout>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".loginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/loginbg"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/toplevel" />
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="173dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="sans-serif"
+        android:layout_centerHorizontal="true"
+        android:text="LOGIN"
+        android:textColor="#FFFFFF"
+        android:textSize="60sp"
+        android:typeface="sans"/>
+
+    <EditText
+        android:id="@+id/loginemail"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/edit_round"
+        android:hint="  Email"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:drawableLeft="@drawable/ic_mail" />
+
+    <EditText
+        android:id="@+id/loginpasswd"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/loginemail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_round"
+        android:hint="  Password"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:drawableLeft="@drawable/ic_lock"
+        android:drawableRight="@drawable/ic_eye" />
+
+    <TextView
+        android:id="@+id/loginforgotpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginpasswd"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="500dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Forgot Password"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:typeface="sans" />
+
+    <Button
+        android:id="@+id/loginbutton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/loginforgotpass"
+        android:focusedByDefault="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/button_round"
+        android:textColor="#50000000"
+        android:text="LOGIN"
+        android:textSize="25sp"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:fontFamily="sans-serif"
+        android:text="Or"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/newaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/or"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:text="Create new acount"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/loginskip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newaccount"
+        android:layout_marginLeft="320dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif"
+        android:text="SKIP >>"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+</RelativeLayout>

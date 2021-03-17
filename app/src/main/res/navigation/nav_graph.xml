@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.bookrental.HomeFragment"
+        android:label="BookRental"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.bookrental.MyCartFragment"
+        android:label="My Cart"
+        tools:layout="@layout/fragment_my_cart" />
+    <fragment
+        android:id="@+id/mylistFragment"
+        android:name="com.example.bookrental.MyListFragment"
+        android:label="My List"
+        tools:layout="@layout/fragment_my_list" />
+    <!--
+    <fragment
+        android:id="@+id/mybookFragment"
+        android:name="com.example.bookrental.MyBookFragment"
+        android:label="My Book"
+        tools:layout="@layout/fragment_my_book" />-->
+    <activity
+        android:id="@+id/mybookActivity"
+        android:name="com.example.bookrental.MyBookActivity"
+        android:label="My Book"
+        tools:layout="@layout/activity_my_book" />
+    <fragment
+        android:id="@+id/myacountFragment"
+        android:name="com.example.bookrental.MyAccountFragment"
+        android:label="My Account"
+        tools:layout="@layout/fragment_my_list" />
+    <activity
+        android:id="@+id/myaddressActivity"
+        android:name="com.example.bookrental.AddressActivity"
+        android:label="My Address"
+        tools:layout="@layout/fragment_my_list"/>
+
+
+</navigation>

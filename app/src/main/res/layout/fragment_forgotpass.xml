@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ForgotpassFragment">
+
+    <ImageView
+        android:id="@+id/forgotpassimage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_lock"
+        android:tint="#03DAC5"
+        tools:ignore="UseAppTint"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/forgotpasstext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/forgotpassimage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Forgot Password ?"
+        android:textColor="@android:color/black"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/forgotpassinfotext1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/forgotpasstext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Enter your registered Email address"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"/>
+
+    <EditText
+        android:id="@+id/forgotpassnemail"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/forgotpassinfotext1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_round"
+        android:hint="  Email"
+        android:paddingLeft="15dp"
+        android:paddingRight="10dp"
+        android:drawableLeft="@drawable/ic_mail"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:id="@+id/resetpassbutton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/forgotpassnemail"
+        android:focusedByDefault="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_round"
+        android:textColor="#50000000"
+        android:text="Reset Password"
+        android:textSize="25sp"
+        android:textAllCaps="false" />
+
+    <TextView
+        android:id="@+id/forgotpassinfotext2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resetpassbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Check your inbox after clicking above button"
+        android:textAllCaps="false"
+        android:textColor="@android:color/black"
+        android:textSize="15dp"/>
+
+    <TextView
+        android:id="@+id/forgotpassgoback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/forgotpassinfotext2"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif"
+        android:text="--GoBack--"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:typeface="sans" />
+
+</RelativeLayout>
