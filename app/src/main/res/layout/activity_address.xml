@@ -1,78 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:background="#FFFFFF"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".AddressActivity">
+
+
+<com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appBarLayout6"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".AddressActivity">
-<!--
-    <LinearLayout
-        android:id="@+id/add_new_address_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:elevation="5dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    android:theme="@style/AppTheme.AppBarOverlay"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="8dp"
-            android:gravity="center_horizontal"
-            android:padding="16dp"
-            android:text="Add a new address"
-            android:textColor="#000000"
-            android:textSize="18sp" />
-    </LinearLayout>
-    -->
-
-    <Button
-        android:id="@+id/add_new_address_btn"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add new address"
-        android:background="@drawable/button_round"
-        android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryDark"
+        app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <!--
-    <LinearLayout
-        android:id="@+id/address_saved_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_new_address_btn">
 
-        <TextView
-            android:id="@+id/address_saved"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2 addresses saved"
-            android:textSize="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/add_new_address_btn" />
-    </LinearLayout>
--->
+</com.google.android.material.appbar.AppBarLayout>
+
+<LinearLayout
+    android:id="@+id/add_new_address_btn"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF"
+    android:elevation="5dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/appBarLayout6">
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableStart="@drawable/add"
+        android:drawablePadding="8dp"
+        android:drawableTint="@color/colorPrimaryDark"
+        android:padding="16dp"
+        android:text="Add a new address"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        tools:ignore="RtlCompat" />
+</LinearLayout>
+
+<TextView
+    android:id="@+id/address_saved"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:text="2 addresses saved"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/add_new_address_btn"
+    tools:ignore="RtlCompat" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/addresses_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="#BFFFFFFF"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_new_address_btn"
-        app:layout_goneMarginTop="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/address_saved" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

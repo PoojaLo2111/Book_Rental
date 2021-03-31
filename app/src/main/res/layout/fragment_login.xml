@@ -5,21 +5,15 @@
     android:layout_height="match_parent"
     tools:context=".loginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/loginbg"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/toplevel" />
-
     <TextView
         android:id="@+id/login"
-        android:layout_width="173dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:fontFamily="sans-serif"
+        android:gravity="center"
         android:layout_centerHorizontal="true"
-        android:text="LOGIN"
+        android:text="SIGN IN"
+        android:background="@drawable/toplevel"
         android:textColor="#FFFFFF"
         android:textSize="60sp"
         android:typeface="sans"/>

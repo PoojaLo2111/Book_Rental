@@ -26,6 +26,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import static com.example.bookrental.RegisterActivity.loginsignupstatus;
 import static com.example.bookrental.RegisterActivity.onResetpass;
 
 /**
@@ -190,6 +191,7 @@ public class loginFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    loginsignupstatus = true;
                                     mainIntent();
                                 }else{
                                     String error = task.getException().getMessage();

@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     android:id="@+id/view_pager_indicator"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/product_images_viewpager"
@@ -28,6 +28,7 @@
         app:rippleColor="#EE0000"
         android:clickable="true"
         android:tint="#9e9e9e"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_favorite"
@@ -38,8 +39,8 @@
         android:id="@+id/book_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="Book Title"
         android:textColor="#000000"
@@ -48,18 +49,40 @@
         app:layout_constraintTop_toBottomOf="@+id/product_images_viewpager" />
 
     <TextView
-        android:id="@+id/book_price"
+        android:id="@+id/book_rental_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="Rs.300/-"
-        android:textSize="24sp"
         android:textColor="#000000"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_title" />
+
+    <TextView
+        android:id="@+id/rent_original_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="(Rs.500/-)"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/book_rental_price"
+        app:layout_constraintStart_toEndOf="@+id/book_rental_price" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#80000000"
+        app:layout_constraintBottom_toBottomOf="@+id/rent_original_price"
+        app:layout_constraintEnd_toEndOf="@+id/rent_original_price"
+        app:layout_constraintStart_toStartOf="@+id/rent_original_price"
+        app:layout_constraintTop_toTopOf="@+id/rent_original_price" />
 
     <TextView
         android:id="@+id/rent_time"
@@ -67,11 +90,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:text="(6 Weeks)"
         android:textColor="#000000"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/book_price"
-        app:layout_constraintStart_toEndOf="@+id/book_price" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_rental_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

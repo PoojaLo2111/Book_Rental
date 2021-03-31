@@ -1,12 +1,28 @@
 package com.example.bookrental;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.example.bookrental.RegisterActivity.onResetpass;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +71,38 @@ public class ToRentFragment extends Fragment {
         }
     }
 
+    private RecyclerView toRentRecycleView;
+    private LinearLayout addNewBook;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_to_rent, container, false);
+        View view = inflater.inflate(R.layout.fragment_to_rent,container,false);
+        toRentRecycleView = view.findViewById(R.id.to_rent_recycleView);
+        addNewBook = view.findViewById(R.id.add_new_book);
+
+        addNewBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getContext().startActivity(new Intent(getContext(),AddBookActivity.class));
+            }
+        });
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        toRentRecycleView.setLayoutManager(layoutManager);
+
+        List<ToRentItemModel> toRentItemModelList = new ArrayList<>();
+        toRentItemModelList.add(new ToRentItemModel(R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
+        toRentItemModelList.add(new ToRentItemModel(R.drawable.book2,"DBMS2","Rs.600","(Rs.400/-)","6 Months"));
+        toRentItemModelList.add(new ToRentItemModel(R.drawable.book3,"DBMS3","Rs.400","(Rs.250/-)","2 Months"));
+        toRentItemModelList.add(new ToRentItemModel(R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));
+
+        ToRentAdapter toRentAdapter = new ToRentAdapter(toRentItemModelList);
+        toRentRecycleView.setAdapter(toRentAdapter);
+        toRentAdapter.notifyDataSetChanged();
+        return view;
     }
+
 }

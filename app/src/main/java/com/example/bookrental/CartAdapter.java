@@ -53,11 +53,13 @@ public class CartAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         switch (CartItemModelList.get(position).getType()){
             case CartItemModel.Cart_Item:
-                int resource = CartItemModelList.get(position).getBookImage();
-                String title = CartItemModelList.get(position).getBook_Tital();
-                String price = CartItemModelList.get(position).getBook_price();
+                int resource = CartItemModelList.get(position).getCartBookImage();
+                String title = CartItemModelList.get(position).getCartBookTital();
+                String rentalprice = CartItemModelList.get(position).getCartBookRentalPrice();
+                String originalprice = CartItemModelList.get(position).getCartBookOriginalPrice();
+                String rentalTime = CartItemModelList.get(position).getCartBookRentTime();
 
-                ((cartItemViewHolder)holder).setItemDetails(resource,title,price);
+                ((cartItemViewHolder)holder).setItemDetails(resource,title,rentalprice,originalprice,rentalTime);
                 break;
             default:
                 return;
@@ -72,13 +74,17 @@ public class CartAdapter extends RecyclerView.Adapter {
     class cartItemViewHolder extends RecyclerView.ViewHolder{
         private ImageView bookImage;
         private TextView bookTitle;
-        private TextView bookPrice;
+        private TextView bookOriginalPrice;
+        private TextView bookRentalPrice;
+        private TextView bookRentTime;
 
         public cartItemViewHolder(@NonNull final View itemView) {
             super(itemView);
-            bookImage = itemView.findViewById(R.id.book_image);
-            bookTitle = itemView.findViewById(R.id.book_title);
-            bookPrice = itemView.findViewById(R.id.book_price);
+            bookImage = itemView.findViewById(R.id.cart_book_image);
+            bookTitle = itemView.findViewById(R.id.cart_book_title);
+            bookOriginalPrice = itemView.findViewById(R.id.cart_book_original_price);
+            bookRentalPrice = itemView.findViewById(R.id.cart_book_rental_price);
+            bookRentTime = itemView.findViewById(R.id.cart_book_rent_time);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -88,10 +94,12 @@ public class CartAdapter extends RecyclerView.Adapter {
                 }
             });
         }
-        private void setItemDetails(int resource,String title,String price){
+        private void setItemDetails(int resource,String title,String rentalPrice,String originalPrice, String time){
             bookImage.setImageResource(resource);
             bookTitle.setText(title);
-            bookPrice.setText(price);
+            bookOriginalPrice.setText(originalPrice);
+            bookRentalPrice.setText(rentalPrice);
+            bookRentTime.setText(time);
         }
     }
     /*class cartTotalAmountViewHolder extends RecyclerView.ViewHolder{

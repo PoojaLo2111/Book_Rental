@@ -10,7 +10,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/cart_book_image"
+        android:id="@+id/wishlist_book_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="8dp"
@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/book1" />
 
     <TextView
-        android:id="@+id/cart_book_title"
+        android:id="@+id/wishlist_book_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,22 +31,22 @@
         android:text="Database Book1"
         android:textColor="#000000"
         android:textSize="16dp"
-        app:layout_constraintStart_toEndOf="@+id/cart_book_image"
+        app:layout_constraintStart_toEndOf="@+id/wishlist_book_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cart_book_original_price"
+        android:id="@+id/wishlist_book_original_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Rs 300/-"
         android:textColor="#000000"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@+id/cart_book_title"
-        app:layout_constraintTop_toBottomOf="@+id/cart_book_title" />
+        app:layout_constraintStart_toStartOf="@+id/wishlist_book_title"
+        app:layout_constraintTop_toBottomOf="@+id/wishlist_book_title" />
 
     <TextView
-        android:id="@+id/cart_book_rental_price"
+        android:id="@+id/wishlist_book_rental_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -54,29 +54,41 @@
         android:text="(Rs.500/-)"
         android:textColor="#000000"
         android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/cart_book_original_price"
-        app:layout_constraintStart_toEndOf="@+id/cart_book_original_price"
-        app:layout_constraintTop_toTopOf="@+id/cart_book_original_price" />
+        app:layout_constraintBottom_toBottomOf="@+id/wishlist_book_original_price"
+        app:layout_constraintStart_toEndOf="@+id/wishlist_book_original_price"
+        app:layout_constraintTop_toTopOf="@+id/wishlist_book_original_price" />
 
     <View
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="#80000000"
-        app:layout_constraintBottom_toBottomOf="@+id/cart_book_rental_price"
-        app:layout_constraintEnd_toEndOf="@+id/cart_book_rental_price"
-        app:layout_constraintStart_toStartOf="@+id/cart_book_rental_price"
-        app:layout_constraintTop_toTopOf="@+id/cart_book_rental_price" />
+        app:layout_constraintBottom_toBottomOf="@+id/wishlist_book_rental_price"
+        app:layout_constraintEnd_toEndOf="@+id/wishlist_book_rental_price"
+        app:layout_constraintStart_toStartOf="@+id/wishlist_book_rental_price"
+        app:layout_constraintTop_toTopOf="@+id/wishlist_book_rental_price" />
 
     <TextView
-        android:id="@+id/cart_book_rent_time"
+        android:id="@+id/wishlist_book_rent_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="6 Month"
         android:textColor="#000000"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="@+id/cart_book_original_price"
-        app:layout_constraintTop_toBottomOf="@+id/cart_book_original_price" />
+        app:layout_constraintStart_toStartOf="@+id/wishlist_book_original_price"
+        app:layout_constraintTop_toBottomOf="@+id/wishlist_book_original_price" />
+
+    <Button
+        android:id="@+id/remove_item"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

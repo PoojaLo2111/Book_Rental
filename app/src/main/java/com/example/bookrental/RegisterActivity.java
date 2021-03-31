@@ -19,6 +19,8 @@ public class RegisterActivity extends AppCompatActivity {
     private FrameLayout framelayout;
     public static boolean onResetpass = false;
     public static boolean onsignup = false;
+    public static boolean setsignupFragment = false;
+    public static boolean loginsignupstatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +28,15 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         framelayout = findViewById(R.id.framelayout);
-        defualtsetdefualtFragment(new loginFragment());
+        if(setsignupFragment) {
+            setsignupFragment = false;
+            setdefualtFragment(new SignupFragment());
+        }else {
+            setdefualtFragment(new loginFragment());
+        }
     }
 
-    private void defualtsetdefualtFragment(Fragment fragment){
+    private void setdefualtFragment(Fragment fragment){
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(framelayout.getId(),fragment);
         fragmentTransaction.commit();

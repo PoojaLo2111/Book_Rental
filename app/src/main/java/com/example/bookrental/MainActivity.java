@@ -128,10 +128,17 @@ public class MainActivity extends AppCompatActivity {
     }
 }*/
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
@@ -146,6 +153,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
+
+import javax.annotation.MatchesPattern;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
+import static com.example.bookrental.RegisterActivity.loginsignupstatus;
+import static com.example.bookrental.RegisterActivity.setsignupFragment;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -221,23 +234,48 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.nav_home:
                 navController.navigate(R.id.homeFragment);
                 break;
+            case R.id.nav_wishlist:
+                navController.navigate(R.id.mywishlist);
+                break;
             case R.id.nav_cart:
+                /*if(loginsignupstatus == true){
+                    navController.navigate(R.id.cartFragment);
+                }else {
+                    showLoginSignupDialog();
+                }*/
                 navController.navigate(R.id.cartFragment);
                 break;
-            case R.id.nav_list:
+            case R.id.nav_mylist:
+                /*if(loginsignupstatus == true){
+                    navController.navigate(R.id.mylistFragment);
+                }else {
+                    showLoginSignupDialog();
+                }*/
                 navController.navigate(R.id.mylistFragment);
                 break;
-            case R.id.nav_book:
+            case R.id.nav_mybook:
+                /*if(loginsignupstatus == true){
+                    navController.navigate(R.id.mybookActivity);
+                }else {
+                    showLoginSignupDialog();
+                }*/
                 navController.navigate(R.id.mybookActivity);
                 break;
             case R.id.nav_account:
+                /*if(loginsignupstatus == true){
+                    navController.navigate(R.id.myacountFragment);
+                }else {
+                    showLoginSignupDialog();
+                }*/
                 navController.navigate(R.id.myacountFragment);
                 break;
-            case R.id.address:
-                navController.navigate(R.id.myaddressActivity);
+            case R.id.nav_signout:
+                //singout ftagment
+                break;
         }
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
@@ -248,9 +286,36 @@ public class MainActivity extends AppCompatActivity implements
             //notification
             return true;
         }else if(id == R.id.main_cart){
-            navController.navigate(R.id.cartFragment);
-            return true;
+            final Dialog signinDialog = new Dialog(MainActivity.this);
+            signinDialog.setContentView(R.layout.signin_signup_dialog);
+            signinDialog.setCancelable(true);
+            signinDialog.getWindow().setLayout(MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+            Button dialogSigninbtn  = signinDialog.findViewById(R.id.sign_in_btn);
+            Button dialogSignupbtn = signinDialog.findViewById(R.id.sign_up_btn);
+
+            final Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+
+            dialogSigninbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    signinDialog.dismiss();
+                    setsignupFragment = false;
+                    startActivity(intent);
+                }
+            });
+
+            dialogSignupbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    signinDialog.dismiss();
+                    setsignupFragment =true;
+                    startActivity(intent);
+                }
+            });
+            signinDialog.show();
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

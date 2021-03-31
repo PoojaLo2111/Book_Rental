@@ -8,16 +8,16 @@
             android:id="@+id/nav_home"
             android:title="Home" />
         <item
-            android:id="@+id/address"
-            android:title="Address"/>
+            android:id="@+id/nav_wishlist"
+            android:title="My Wishlist"/>
         <item
             android:id="@+id/nav_cart"
             android:title="My Cart" />
         <item
-            android:id="@+id/nav_list"
+            android:id="@+id/nav_mylist"
             android:title="My List"/>
         <item
-            android:id="@+id/nav_book"
+            android:id="@+id/nav_mybook"
             android:title="My Books"/>
         <item
             android:id="@+id/nav_account"

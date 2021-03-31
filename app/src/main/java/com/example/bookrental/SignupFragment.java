@@ -1,5 +1,6 @@
 package com.example.bookrental;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -34,6 +35,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.bookrental.RegisterActivity.loginsignupstatus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -139,6 +142,7 @@ public class SignupFragment extends Fragment {
 
             }
 
+            @SuppressLint("NewApi")
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkinput();
@@ -155,6 +159,7 @@ public class SignupFragment extends Fragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkinput();
@@ -171,6 +176,7 @@ public class SignupFragment extends Fragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkinput();
@@ -187,6 +193,7 @@ public class SignupFragment extends Fragment {
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 checkinput();
@@ -274,6 +281,7 @@ public class SignupFragment extends Fragment {
                                                     }
                                                 }
                                             });*/
+                                    loginsignupstatus = true;
                                     mainIntent();
                                 }
                                 else{

@@ -15,10 +15,10 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MyCartFragment#newInstance} factory method to
+ * Use the {@link WishlistFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyCartFragment extends Fragment {
+public class WishlistFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +29,7 @@ public class MyCartFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MyCartFragment() {
+    public WishlistFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +39,11 @@ public class MyCartFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MyCartFragment.
+     * @return A new instance of fragment WishlistFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MyCartFragment newInstance(String param1, String param2) {
-        MyCartFragment fragment = new MyCartFragment();
+    public static WishlistFragment newInstance(String param1, String param2) {
+        WishlistFragment fragment = new WishlistFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,30 +60,28 @@ public class MyCartFragment extends Fragment {
         }
     }
 
-    private RecyclerView cartItemsRecyclerView;
+    private RecyclerView wishlistRecycleView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_wishlist,container,false);
+        wishlistRecycleView = view.findViewById(R.id.wishlist_recycleview);
 
-        View view = inflater.inflate(R.layout.fragment_my_cart,container,false);
-        cartItemsRecyclerView = view.findViewById(R.id.cart_items_recyclerview);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        cartItemsRecyclerView.setLayoutManager(layoutManager);
+        wishlistRecycleView.setLayoutManager(layoutManager);
 
-        List<CartItemModel>CartItemModelList = new ArrayList<>();
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book2,"DBMS2","Rs.600","(Rs.400/-)","6 Months"));
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book3,"DBMS3","Rs.400","(Rs.250/-)","2 Months"));
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));
+        List<WishlistItemModel> wishlistItemModelList = new ArrayList<>();
+        wishlistItemModelList.add(new WishlistItemModel(R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
+        wishlistItemModelList.add(new WishlistItemModel(R.drawable.book2,"DBMS2","Rs.600","(Rs.400/-)","6 Months"));
+        wishlistItemModelList.add(new WishlistItemModel(R.drawable.book3,"DBMS3","Rs.400","(Rs.250/-)","2 Months"));
+        wishlistItemModelList.add(new WishlistItemModel(R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));
 
-        CartAdapter cartAdapter = new CartAdapter(CartItemModelList);
-        cartItemsRecyclerView.setAdapter(cartAdapter);
-        cartAdapter.notifyDataSetChanged();
+        WishlistAdapter wishlistAdapter = new WishlistAdapter(wishlistItemModelList);
+        wishlistRecycleView.setAdapter(wishlistAdapter);
+        wishlistAdapter.notifyDataSetChanged();
         return view;
-
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_my_cart, container, false);
     }
 }

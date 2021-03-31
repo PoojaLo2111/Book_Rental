@@ -36,11 +36,10 @@
         android:name="com.example.bookrental.MyAccountFragment"
         android:label="My Account"
         tools:layout="@layout/fragment_my_list" />
-    <activity
-        android:id="@+id/myaddressActivity"
-        android:name="com.example.bookrental.AddressActivity"
-        android:label="My Address"
-        tools:layout="@layout/fragment_my_list"/>
-
+    <fragment
+        android:id="@+id/mywishlist"
+        android:name="com.example.bookrental.WishlistFragment"
+        android:label="My Wishlist"
+        tools:layout="@layout/fragment_wishlist"/>
 
 </navigation>
