@@ -1,17 +1,26 @@
 package com.example.bookrental;
 
+import android.app.Dialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.bookrental.DatabaseQuerries.firebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,7 +70,9 @@ public class MyListFragment extends Fragment {
     }
 
     private RecyclerView myListRecyclerView;
-
+    private List<MyListItemModel> myListItemModelList;
+    private MyListAdapter myListAdapter;
+    private Dialog myListDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,22 +80,41 @@ public class MyListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_list, container, false);
         myListRecyclerView =view.findViewById(R.id.my_list_recycler_view);
+
+        myListItemModelList = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        myListAdapter = new MyListAdapter(MyListFragment.this,myListItemModelList);
+        myListRecyclerView.setAdapter(myListAdapter);
         myListRecyclerView.setLayoutManager(layoutManager);
 
-        List<MyListItemModel> myListItemModelList = new ArrayList<>();
-        myListItemModelList.add(new MyListItemModel(R.drawable.book1,"DBMS1","Last Date Mon,1 Jan 2021"));
+        FirebaseFirestore.getInstance().collection("Rental")
+                .whereEqualTo("ReceiverID",firebaseAuth.getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                String image,name,enddate;
+                                //horizontalBookScrollModelList.add(new HorizontalBookScrollModel(
+                                image = document.getString("BookImage");
+                                name = document.getString("BookTitle");
+                                enddate = document.getString("EndDate");
+                                myListItemModelList.add(new MyListItemModel(image,name,"Last Date : "+enddate));
+                            }
+                            myListAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
+        /*myListItemModelList.add(new MyListItemModel(R.drawable.book1,"DBMS1","Last Date Mon,1 Jan 2021"));
         myListItemModelList.add(new MyListItemModel(R.drawable.book2,"DBMS2","Last Date Mon,2 Jan 2021"));
         myListItemModelList.add(new MyListItemModel(R.drawable.book3,"DBMS3","Last Date Mon,3 Jan 2021"));
         myListItemModelList.add(new MyListItemModel(R.drawable.book4,"DBMS4","Last Date Mon,4 Jan 2021"));
         myListItemModelList.add(new MyListItemModel(R.drawable.book5,"DBMS5","Last Date Mon,5 Jan 2021"));
         myListItemModelList.add(new MyListItemModel(R.drawable.book6,"DBMS6","Last Date Mon,6 Jan 2021"));
-        myListItemModelList.add(new MyListItemModel(R.drawable.book7,"DBMS7","Last Date Mon,7 Jan 2021"));
-
-        MyListAdapter myListAdapter = new MyListAdapter(myListItemModelList);
-        myListRecyclerView.setAdapter(myListAdapter);
-        myListAdapter.notifyDataSetChanged();
+        myListItemModelList.add(new MyListItemModel(R.drawable.book7,"DBMS7","Last Date Mon,7 Jan 2021"));*/
         return view;
     }
 }

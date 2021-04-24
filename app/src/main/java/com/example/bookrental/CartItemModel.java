@@ -4,7 +4,7 @@ public class CartItemModel {
 
     public static final int Cart_Item = 0;
     public static final int Total_Amount = 0;
-    private int type;
+    /*private int type;
 
     public int getType() {
         return type;
@@ -12,18 +12,18 @@ public class CartItemModel {
 
     public void setType(int type) {
         this.type = type;
-    }
+    }*/
 
     /////cartitem
 
-    private int cartBookImage;
+    private String cartBookImage;
     private String cartBookTital;
     private String cartBookOriginalPrice;
     private String cartBookRentalPrice;
     private String cartBookRentTime;
 
-    public CartItemModel(int type, int cartBookImage, String cartBookTital, String cartBookOriginalPrice, String cartBookRentalPrice, String cartBookRentTime) {
-        this.type = type;
+    public CartItemModel(/*int type, */String cartBookImage, String cartBookTital, String cartBookOriginalPrice, String cartBookRentalPrice, String cartBookRentTime) {
+        //this.type = type;
         this.cartBookImage = cartBookImage;
         this.cartBookTital = cartBookTital;
         this.cartBookOriginalPrice = cartBookOriginalPrice;
@@ -31,11 +31,11 @@ public class CartItemModel {
         this.cartBookRentTime = cartBookRentTime;
     }
 
-    public int getCartBookImage() {
+    public String getCartBookImage() {
         return cartBookImage;
     }
 
-    public void setCartBookImage(int cartBookImage) {
+    public void setCartBookImage(String cartBookImage) {
         this.cartBookImage = cartBookImage;
     }
 

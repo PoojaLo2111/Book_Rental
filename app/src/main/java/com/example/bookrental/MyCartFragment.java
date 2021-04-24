@@ -1,17 +1,28 @@
 package com.example.bookrental;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
+import static com.example.bookrental.DatabaseQuerries.firebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +72,9 @@ public class MyCartFragment extends Fragment {
     }
 
     private RecyclerView cartItemsRecyclerView;
+    private TextView totalAmount;
+    private List<CartItemModel> CartItemModelList;
+    private CartAdapter cartAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,19 +82,58 @@ public class MyCartFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_my_cart,container,false);
         cartItemsRecyclerView = view.findViewById(R.id.cart_items_recyclerview);
+        totalAmount = view.findViewById(R.id.total_cart_amount);
+
+        CartItemModelList = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        cartAdapter = new CartAdapter(CartItemModelList);
+        cartItemsRecyclerView.setAdapter(cartAdapter);
         cartItemsRecyclerView.setLayoutManager(layoutManager);
 
-        List<CartItemModel>CartItemModelList = new ArrayList<>();
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book2,"DBMS2","Rs.600","(Rs.400/-)","6 Months"));
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book3,"DBMS3","Rs.400","(Rs.250/-)","2 Months"));
-        CartItemModelList.add(new CartItemModel(0,R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));
+        FirebaseFirestore.getInstance().collection("USERS")
+                .document(firebaseAuth.getCurrentUser().getUid())
+                .collection("CART")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document1 : task.getResult()) {
 
-        CartAdapter cartAdapter = new CartAdapter(CartItemModelList);
-        cartItemsRecyclerView.setAdapter(cartAdapter);
-        cartAdapter.notifyDataSetChanged();
+                                String BookID = document1.getString("Bookid");
+
+                                FirebaseFirestore.getInstance().collection("Books")
+                                        .document(BookID)
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()){
+                                                    DocumentSnapshot document = task.getResult();
+                                                    Log.d(TAG,"bookidcart"+document);
+                                                    String image,name,originalprice,rentalprice,time,timetype;
+                                                    //horizontalBookScrollModelList.add(new HorizontalBookScrollModel(
+                                                    image = document.getString("image0");
+                                                    name = document.getString("BookName");
+                                                    originalprice = document.getString("BookOriginalPrice");
+                                                    rentalprice = document.getString("BookRentalPrice");
+                                                    time = document.getString("BookRentalTime");
+                                                    timetype = document.getString("BookRentalTimeType");
+                                                    CartItemModelList.add(new CartItemModel(image,name,"Rs. "+rentalprice+" /-","(Rs."+originalprice+"/-)",time+" "+timetype));
+                                                }
+                                                cartAdapter.notifyDataSetChanged();
+                                            }
+                                        });
+                            }
+                        }
+                    }
+                });
+
+        /*CartItemModelList.add(new CartItemModel(R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
+        CartItemModelList.add(new CartItemModel(R.drawable.book2,"DBMS2","Rs.600","(Rs.400/-)","6 Months"));
+        CartItemModelList.add(new CartItemModel(R.drawable.book3,"DBMS3","Rs.400","(Rs.250/-)","2 Months"));
+        CartItemModelList.add(new CartItemModel(/R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));*/
         return view;
 
         // Inflate the layout for this fragment

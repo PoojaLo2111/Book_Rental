@@ -2,23 +2,37 @@ package com.example.bookrental;
 
 public class HorizontalBookScrollModel {
 
-    private int bookImage;
+    private String bookId;
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public HorizontalBookScrollModel(){
+
+    }
+
+    private String bookImage;
     private String bookTitle;
     private String bookPrice;
     private String bookRentTime;
 
-    public HorizontalBookScrollModel(int bookImage, String bookTitle, String bookPrice, String bookRentTime) {
+    public HorizontalBookScrollModel(String bookImage, String bookTitle, String bookPrice, String bookRentTime) {
         this.bookImage = bookImage;
         this.bookTitle = bookTitle;
         this.bookPrice = bookPrice;
         this.bookRentTime = bookRentTime;
     }
 
-    public int getBookImage() {
+    public String getBookImage() {
         return bookImage;
     }
 
-    public void setBookImage(int bookImage) {
+    public void setBookImage(String bookImage) {
         this.bookImage = bookImage;
     }
 

@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/wishlist_book_original_price" />
 
     <Button
-        android:id="@+id/remove_item"
+        android:id="@+id/wishlist_remove_item"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginTop="8dp"

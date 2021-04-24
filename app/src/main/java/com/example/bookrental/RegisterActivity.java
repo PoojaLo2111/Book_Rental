@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static boolean onResetpass = false;
     public static boolean onsignup = false;
     public static boolean setsignupFragment = false;
-    public static boolean loginsignupstatus = false;
+    //public static boolean loginsignupstatus = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

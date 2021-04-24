@@ -2,27 +2,26 @@ package com.example.bookrental;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.bookrental.RegisterActivity.onResetpass;
+import static com.example.bookrental.DatabaseQuerries.firebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -73,6 +72,8 @@ public class ToRentFragment extends Fragment {
 
     private RecyclerView toRentRecycleView;
     private LinearLayout addNewBook;
+    private ToRentAdapter toRentAdapter;
+    private List<ToRentItemModel> toRentItemModelList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -89,19 +90,42 @@ public class ToRentFragment extends Fragment {
             }
         });
 
+        toRentItemModelList = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         toRentRecycleView.setLayoutManager(layoutManager);
+        toRentAdapter = new ToRentAdapter(toRentItemModelList);
+        toRentRecycleView.setAdapter(toRentAdapter);
 
-        List<ToRentItemModel> toRentItemModelList = new ArrayList<>();
-        toRentItemModelList.add(new ToRentItemModel(R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
+        FirebaseFirestore.getInstance().collection("Books")
+                .whereEqualTo("OwenerId",firebaseAuth.getCurrentUser().getUid())
+                .whereEqualTo("taken",false)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                String image,name,originalprice,rentalprice,time,timetype;
+                                //horizontalBookScrollModelList.add(new HorizontalBookScrollModel(
+                                image = document.getString("image0");
+                                name = document.getString("BookName");
+                                originalprice = document.getString("BookOriginalPrice");
+                                rentalprice = document.getString("BookRentalPrice");
+                                time = document.getString("BookRentalTime");
+                                timetype = document.getString("BookRentalTimeType");
+
+                                toRentItemModelList.add(new ToRentItemModel(image,name,"(Rs."+rentalprice+"/-)","Rs. "+originalprice+" /-",time+" "+timetype));
+                            }
+                            toRentAdapter.notifyDataSetChanged();
+                        }
+                    }
+                });
+
+        /*toRentItemModelList.add(new ToRentItemModel(R.drawable.book1,"DBMS1","Rs.500","(Rs.300/-)","4 Months"));
         toRentItemModelList.add(new ToRentItemModel(R.drawable.book2,"DBMS2","Rs.600","(Rs.400/-)","6 Months"));
         toRentItemModelList.add(new ToRentItemModel(R.drawable.book3,"DBMS3","Rs.400","(Rs.250/-)","2 Months"));
-        toRentItemModelList.add(new ToRentItemModel(R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));
-
-        ToRentAdapter toRentAdapter = new ToRentAdapter(toRentItemModelList);
-        toRentRecycleView.setAdapter(toRentAdapter);
-        toRentAdapter.notifyDataSetChanged();
+        toRentItemModelList.add(new ToRentItemModel(R.drawable.book4,"DBMS4","Rs.800","(Rs.500/-)","6 Months"));*/
         return view;
     }
 

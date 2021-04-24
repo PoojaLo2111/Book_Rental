@@ -2,13 +2,13 @@ package com.example.bookrental;
 
 public class ToRentItemModel {
 
-    private int toRentBookImage;
+    private String toRentBookImage;
     private String toRentBookTital;
     private String toRentOriginalPrice;
     private String toRentBookRentalPrice;
     private String toRentBookRentTime;
 
-    public ToRentItemModel(int toRentBookImage, String toRentBookTital, String toRentOriginalPrice, String toRentBookRentalPrice, String toRentBookRentTime) {
+    public ToRentItemModel(String toRentBookImage, String toRentBookTital, String toRentOriginalPrice, String toRentBookRentalPrice, String toRentBookRentTime) {
         this.toRentBookImage = toRentBookImage;
         this.toRentBookTital = toRentBookTital;
         this.toRentOriginalPrice = toRentOriginalPrice;
@@ -16,11 +16,11 @@ public class ToRentItemModel {
         this.toRentBookRentTime = toRentBookRentTime;
     }
 
-    public int getToRentBookImage() {
+    public String getToRentBookImage() {
         return toRentBookImage;
     }
 
-    public void setToRentBookImage(int toRentBookImage) {
+    public void setToRentBookImage(String toRentBookImage) {
         this.toRentBookImage = toRentBookImage;
     }
 

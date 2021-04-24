@@ -1,7 +1,6 @@
 package com.example.bookrental;
 
 import android.content.Intent;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
-public class HorizontalBookScrollAdapter extends RecyclerView.Adapter<HorizontalBookScrollAdapter.ViewHolder> {
+public class HorizontalBookScrollAdapter extends RecyclerView.Adapter<HorizontalBookScrollAdapter.ViewHolder>{
+
+    //private OnListItemClick onListItemClick;
 
     private List<HorizontalBookScrollModel> horizontalBookScrollModelList;
 
-    public HorizontalBookScrollAdapter(List<HorizontalBookScrollModel> horizontalBookScrollModelList) {
+    public HorizontalBookScrollAdapter(List<HorizontalBookScrollModel> horizontalBookScrollModelList/*, OnListItemClick onListItemClick*/) {
         this.horizontalBookScrollModelList = horizontalBookScrollModelList;
+        //this.onListItemClick = onListItemClick;
     }
 
     @NonNull
@@ -30,7 +34,7 @@ public class HorizontalBookScrollAdapter extends RecyclerView.Adapter<Horizontal
 
     @Override
     public void onBindViewHolder(@NonNull HorizontalBookScrollAdapter.ViewHolder holder, int position) {
-        int resouce = horizontalBookScrollModelList.get(position).getBookImage();
+        String resouce = horizontalBookScrollModelList.get(position).getBookImage();
         String title = horizontalBookScrollModelList.get(position).getBookTitle();
         String price = horizontalBookScrollModelList.get(position).getBookPrice();
         String rentTime = horizontalBookScrollModelList.get(position).getBookRentTime();
@@ -46,7 +50,7 @@ public class HorizontalBookScrollAdapter extends RecyclerView.Adapter<Horizontal
         return horizontalBookScrollModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener*/{
 
         private ImageView bookImage;
         private TextView bookTitle;
@@ -64,13 +68,18 @@ public class HorizontalBookScrollAdapter extends RecyclerView.Adapter<Horizontal
                 @Override
                 public void onClick(View v) {
                     Intent productDetailsIntent = new Intent(itemView.getContext(),ProductDetailsActivity.class);
+                    productDetailsIntent.putExtra("bookId", getAbsoluteAdapterPosition()+1);
                     itemView.getContext().startActivity(productDetailsIntent);
                 }
             });
+
         }
 
-        private void setBookImage(int resource){
-            bookImage.setImageResource(resource);
+        private void setBookImage(String resource){
+            //Picasso.get().load(resource).into(bookImage);
+            Picasso.with(itemView.getContext())
+                    .load(resource)
+                    .into(bookImage);
         }
         private void setBookTitle(String title){
             bookTitle.setText(title);
@@ -81,5 +90,14 @@ public class HorizontalBookScrollAdapter extends RecyclerView.Adapter<Horizontal
         private void setBookRentTime(String rentTime){
             bookRentTime.setText(rentTime);
         }
+
+        /*@Override
+        public void onClick(View view) {
+            onListItemClick.onItemClick(, getAdapterPosition());
+        }*/
     }
+
+    /*public interface OnListItemClick {
+        void onItemClick(DocumentSnapshot snapshot, int position);
+    }*/
 }

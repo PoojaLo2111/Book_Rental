@@ -79,4 +79,16 @@
         app:layout_constraintStart_toStartOf="@+id/cart_book_original_price"
         app:layout_constraintTop_toBottomOf="@+id/cart_book_original_price" />
 
+    <Button
+        android:id="@+id/remove_book"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/remove"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

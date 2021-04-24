@@ -3,12 +3,6 @@ package com.example.bookrental;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -21,13 +15,19 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import static com.example.bookrental.RegisterActivity.loginsignupstatus;
 import static com.example.bookrental.RegisterActivity.onResetpass;
+
+//import static com.example.bookrental.RegisterActivity.loginsignupstatus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,7 +83,7 @@ public class loginFragment extends Fragment {
     private Button loginbtn;
     private String emailpattern = "[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
     private FirebaseAuth firebaseAuth;
-    private TextView skip;
+    //private TextView skip;
     private TextView forgotpass;
 
     @Override
@@ -96,7 +96,7 @@ public class loginFragment extends Fragment {
         email = view.findViewById(R.id.loginemail);
         password = view.findViewById(R.id.loginpasswd);
         loginbtn = view.findViewById(R.id.loginbutton);
-        skip = view.findViewById(R.id.loginskip);
+        //skip = view.findViewById(R.id.loginskip);
         forgotpass = view.findViewById(R.id.loginforgotpass);
         firebaseAuth = FirebaseAuth.getInstance();
         return view;
@@ -119,12 +119,12 @@ public class loginFragment extends Fragment {
                 setFragment(new ForgotpassFragment());
             }
         });
-        skip.setOnClickListener(new View.OnClickListener() {
+        /*skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainIntent();
             }
-        });
+        });*/
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -191,7 +191,7 @@ public class loginFragment extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    loginsignupstatus = true;
+                                    //loginsignupstatus = true;
                                     mainIntent();
                                 }else{
                                     String error = task.getException().getMessage();

@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bookrental">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -9,14 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AddBookActivity"></activity>
-        <activity android:name=".MyBookActivity" />
-        <activity android:name=".AddAddressActivity" />
-        <activity android:name=".AddressActivity" />
-        <activity android:name=".ProductDetailsActivity" />
+        <activity android:name=".ViewAllActivity"></activity>
+        <activity
+            android:name=".AddBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyBookActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProductDetailsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegisterActivity"

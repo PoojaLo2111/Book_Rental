@@ -129,36 +129,30 @@ public class MainActivity extends AppCompatActivity {
 }*/
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.TextView;
-
-import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import javax.annotation.MatchesPattern;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static com.example.bookrental.RegisterActivity.loginsignupstatus;
-import static com.example.bookrental.RegisterActivity.setsignupFragment;
+import static com.example.bookrental.DatabaseQuerries.firebaseAuth;
+
+//import static com.example.bookrental.RegisterActivity.loginsignupstatus;
 
 public class MainActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener {
@@ -172,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements
     private static int current_fragment = -1;
     private TextView actionBarTitle;
     private Object MyAccountFragment;
+    private Dialog signinDialog;
+    private TextView username,email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,6 +175,40 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 
         setupNavigation();
+
+        /*if(DatabaseQuerries.currentUser == null){
+            navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(false);
+        }else {
+            navigationView.getMenu().getItem(navigationView.getMenu().size()-1).setEnabled(true);
+        }
+
+        signinDialog = new Dialog(MainActivity.this);
+        signinDialog.setContentView(R.layout.signin_signup_dialog);
+        signinDialog.setCancelable(true);
+        signinDialog.getWindow().setLayout(MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+        Button dialogSigninbtn  = signinDialog.findViewById(R.id.sign_in_btn);
+        Button dialogSignupbtn = signinDialog.findViewById(R.id.sign_up_btn);
+
+        final Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
+
+        dialogSigninbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signinDialog.dismiss();
+                setsignupFragment = false;
+                startActivity(intent);
+            }
+        });
+
+        dialogSignupbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signinDialog.dismiss();
+                setsignupFragment =true;
+                startActivity(intent);
+            }
+        });*/
     }
 
     @Override
@@ -209,6 +239,9 @@ public class MainActivity extends AppCompatActivity implements
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout);
         NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(this);
+
+        username=navigationView.getHeaderView(0).findViewById(R.id.main_name);
+        email=navigationView.getHeaderView(0).findViewById(R.id.main_email);
     }
 
     @Override
@@ -238,39 +271,22 @@ public class MainActivity extends AppCompatActivity implements
                 navController.navigate(R.id.mywishlist);
                 break;
             case R.id.nav_cart:
-                /*if(loginsignupstatus == true){
-                    navController.navigate(R.id.cartFragment);
-                }else {
-                    showLoginSignupDialog();
-                }*/
                 navController.navigate(R.id.cartFragment);
                 break;
             case R.id.nav_mylist:
-                /*if(loginsignupstatus == true){
-                    navController.navigate(R.id.mylistFragment);
-                }else {
-                    showLoginSignupDialog();
-                }*/
                 navController.navigate(R.id.mylistFragment);
                 break;
             case R.id.nav_mybook:
-                /*if(loginsignupstatus == true){
-                    navController.navigate(R.id.mybookActivity);
-                }else {
-                    showLoginSignupDialog();
-                }*/
                 navController.navigate(R.id.mybookActivity);
                 break;
             case R.id.nav_account:
-                /*if(loginsignupstatus == true){
-                    navController.navigate(R.id.myacountFragment);
-                }else {
-                    showLoginSignupDialog();
-                }*/
                 navController.navigate(R.id.myacountFragment);
                 break;
             case R.id.nav_signout:
                 //singout ftagment
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(MainActivity.this,RegisterActivity.class));
+                finish();
                 break;
         }
         return true;
@@ -286,36 +302,24 @@ public class MainActivity extends AppCompatActivity implements
             //notification
             return true;
         }else if(id == R.id.main_cart){
-            final Dialog signinDialog = new Dialog(MainActivity.this);
-            signinDialog.setContentView(R.layout.signin_signup_dialog);
-            signinDialog.setCancelable(true);
-            signinDialog.getWindow().setLayout(MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-            Button dialogSigninbtn  = signinDialog.findViewById(R.id.sign_in_btn);
-            Button dialogSignupbtn = signinDialog.findViewById(R.id.sign_up_btn);
-
-            final Intent intent = new Intent(MainActivity.this,RegisterActivity.class);
-
-            dialogSigninbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    signinDialog.dismiss();
-                    setsignupFragment = false;
-                    startActivity(intent);
-                }
-            });
-
-            dialogSignupbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    signinDialog.dismiss();
-                    setsignupFragment =true;
-                    startActivity(intent);
-                }
-            });
-            signinDialog.show();
+            navController.navigate(R.id.cartFragment);
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseFirestore.getInstance()
+                .collection("USERS")
+                .document(firebaseAuth.getCurrentUser().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot snapshot) {
+                        username.setText(snapshot.getString("username"));
+                        email.setText(snapshot.getString("email"));
+                    }
+                });
+    }
 }

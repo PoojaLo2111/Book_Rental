@@ -1,27 +1,36 @@
 package com.example.bookrental;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,6 +75,9 @@ public class HomeFragment extends Fragment {
     private TextView mostlikeslayouttitle;
     private Button mostlikesviewallbtn;
     private RecyclerView mostlikesRecyclerView;
+    private FirebaseFirestore firebaseFirestore;
+    private List<HorizontalBookScrollModel> horizontalBookScrollModelList;
+    private HorizontalBookScrollAdapter horizontalBookScrollAdapter;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
@@ -76,23 +88,44 @@ public class HomeFragment extends Fragment {
         mostlikesviewallbtn = view.findViewById(R.id.h_s_l_button);
         mostlikesRecyclerView = view.findViewById(R.id.h_s_l_recyclerview);
 
-        List<HorizontalBookScrollModel> horizontalBookScrollModelList = new ArrayList<>();
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book1,"Databse1","Rs.100","6 Months"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book2,"Databse2","Rs.150","6 Months"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book3,"Databse3","Rs.200","8 Months"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book4,"Databse4","Rs.170","7 Months"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book5,"Databse5","Rs.90","5 Months"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book6,"Databse6","Rs.200","1 Year"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book7,"Databse7","Rs.50","3 Months"));
-        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(R.drawable.book8,"Databse8","Rs.100","6 Months"));
+        mostlikesviewallbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mainIntent = new Intent(getActivity(), ViewAllActivity.class);
+                startActivity(mainIntent);
+            }
+        });
 
-        HorizontalBookScrollAdapter horizontalBookScrollAdapter = new HorizontalBookScrollAdapter(horizontalBookScrollModelList);
+        horizontalBookScrollModelList = new ArrayList<>();
+        horizontalBookScrollAdapter = new HorizontalBookScrollAdapter(horizontalBookScrollModelList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mostlikesRecyclerView.setLayoutManager(linearLayoutManager);
         mostlikesRecyclerView.setAdapter(horizontalBookScrollAdapter);
-        horizontalBookScrollAdapter.notifyDataSetChanged();
+
+        FirebaseFirestore.getInstance().collection("Books").limit(6)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        String image,name,price,time,timetype;
+                        //horizontalBookScrollModelList.add(new HorizontalBookScrollModel(
+                                image = document.getString("image0");
+                                name = document.getString("BookName");
+                                price = document.getString("BookRentalPrice");
+                                time = document.getString("BookRentalTime");
+                                timetype = document.getString("BookRentalTimeType");
+                        //));
+                        horizontalBookScrollModelList.add(new HorizontalBookScrollModel(image,name,"Rs. "+price+" /-",time+" "+timetype));
+                    }
+                    horizontalBookScrollAdapter.notifyDataSetChanged();
+                    Log.d(TAG, "pooja" + horizontalBookScrollAdapter.getItemCount());
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         return view;
-        
     }
 }

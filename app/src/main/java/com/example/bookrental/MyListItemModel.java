@@ -2,21 +2,21 @@ package com.example.bookrental;
 
 public class MyListItemModel {
 
-    private int productImage;
+    private String productImage;
     private String productTitle;
     private String productLastDate;
 
-    public MyListItemModel(int productImage, String productTitle, String productLastDate) {
+    public MyListItemModel(String productImage, String productTitle, String productLastDate) {
         this.productImage = productImage;
         this.productTitle = productTitle;
         this.productLastDate = productLastDate;
     }
 
-    public int getProductImage() {
+    public String getProductImage() {
         return productImage;
     }
 
-    public void setProductImage(int productImage) {
+    public void setProductImage(String productImage) {
         this.productImage = productImage;
     }
 

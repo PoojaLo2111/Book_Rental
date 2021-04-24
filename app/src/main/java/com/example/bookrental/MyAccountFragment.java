@@ -2,16 +2,19 @@ package com.example.bookrental;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
-import static com.example.bookrental.RegisterActivity.onResetpass;
+import androidx.fragment.app.Fragment;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import static com.example.bookrental.DatabaseQuerries.firebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,6 +64,7 @@ public class MyAccountFragment extends Fragment {
     }
 
     private Button addressViewAllbtn;
+    private TextView username,email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,6 +72,20 @@ public class MyAccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_account, container, false);
         addressViewAllbtn = view.findViewById(R.id.address_viewall_button);
+
+        username = view.findViewById(R.id.my_account_profile_name);
+        email = view.findViewById(R.id.my_account_profile_mail);
+
+        FirebaseFirestore.getInstance().collection("USERS")
+                .document(firebaseAuth.getCurrentUser().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot snapshot) {
+                        username.setText(snapshot.getString("username"));
+                        email.setText(snapshot.getString("email"));
+                    }
+                });
 
         addressViewAllbtn.setOnClickListener(new View.OnClickListener() {
             @Override

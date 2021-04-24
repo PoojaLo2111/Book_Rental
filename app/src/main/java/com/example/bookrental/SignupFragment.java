@@ -5,13 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -24,19 +17,27 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.example.bookrental.RegisterActivity.loginsignupstatus;
+//import com.google.firebase.database.DatabaseReference;
+//import com.google.firebase.database.FirebaseDatabase;
+
+//import static com.example.bookrental.RegisterActivity.loginsignupstatus;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,9 +95,9 @@ public class SignupFragment extends Fragment {
     private Button signupbtn;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    private TextView skip;
+    //private FirebaseDatabase firebaseDatabase;
+    //private DatabaseReference databaseReference;
+    //private TextView skip;
     private String emailpattern = "[a-zA-Z0-9._-]+@[a-z]+.[a-z]+";
 
     @Override
@@ -111,11 +112,11 @@ public class SignupFragment extends Fragment {
         password = view.findViewById(R.id.signuppass);
         confpass = view.findViewById(R.id.signupconfpass);
         signupbtn = view.findViewById(R.id.signupbutton);
-        skip = view.findViewById(R.id.signupskip);
+        //skip = view.findViewById(R.id.signupskip);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference("USERS");
+        //firebaseDatabase = FirebaseDatabase.getInstance();
+        //databaseReference = FirebaseDatabase.getInstance().getReference("USERS");
         return view;
     }
 
@@ -129,12 +130,12 @@ public class SignupFragment extends Fragment {
             }
         });
 
-        skip.setOnClickListener(new View.OnClickListener() {
+        /*skip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mainIntent();
             }
-        });
+        });*/
 
         name.addTextChangedListener(new TextWatcher() {
             @Override
@@ -252,28 +253,40 @@ public class SignupFragment extends Fragment {
                 firebaseAuth.createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                            public void onComplete(@NonNull final Task<AuthResult> task) {
                                 if(task.isSuccessful()){
 
-                                    String Name = name.getText().toString();
+                                    /*String Name = name.getText().toString();
                                     String Email = email.getText().toString();
                                     String ID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                                     databaseReference = databaseReference.child(ID);
                                     databaseReference.child("Name").setValue(Name);
-                                    databaseReference.child("Email").setValue(Email);
+                                    databaseReference.child("Email").setValue(Email);*/
 
-                                    /*Map<Object,String > userdata = new HashMap<>();
-                                    userdata.put("name",name.getText().toString());
+                                    Map<Object,String > userdata = new HashMap<>();
+                                    userdata.put("username",name.getText().toString());
+                                    userdata.put("email",email.getText().toString());
 
                                     firebaseFirestore.collection("USERS")
-                                            .add(userdata)
-                                            .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                            .document(firebaseAuth.getCurrentUser().getUid())
+                                            .set(userdata)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    mainIntent();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    String error = task.getException().getMessage();
+                                                    Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                                                }
+                                             });
+                                            /*.addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentReference> task) {
                                                     if(task.isSuccessful()){
-                                                        Intent mainIntent = new Intent(getActivity(),MainActivity.class);
-                                                        startActivity(mainIntent);
-                                                        getActivity().finish();
+                                                        mainIntent();
                                                     }
                                                     else{
                                                         String error = task.getException().getMessage();
@@ -281,8 +294,6 @@ public class SignupFragment extends Fragment {
                                                     }
                                                 }
                                             });*/
-                                    loginsignupstatus = true;
-                                    mainIntent();
                                 }
                                 else{
                                     String error = task.getException().getMessage();

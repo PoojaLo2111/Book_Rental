@@ -6,15 +6,164 @@
     android:layout_height="match_parent"
     tools:context=".AddBookActivity">
 
-    <TextView
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout7"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Add book"
-        android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:nestedScrollingEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout7"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/select_book_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/add"
+                android:drawablePadding="8dp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:padding="16dp"
+                android:text="Select Book Images"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                tools:ignore="RtlCompat" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/add_book_recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <EditText
+                android:id="@+id/book_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Book Name *"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <Spinner
+                android:id="@+id/book_type"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:entries="@array/BookType"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp" />
+
+            <EditText
+                android:id="@+id/detail_of_book"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:lines="3"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
+                android:isScrollContainer="true"
+                android:inputType="textMultiLine"
+                android:hint="Detail About Book *"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <EditText
+                android:id="@+id/book_original_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="Original Price *"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/book_rental_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:hint="Rental Time *"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"/>
+
+                <Spinner
+                    android:id="@+id/time_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:entries="@array/TimeType"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginLeft="12dp" />
+
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/book_rental_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="Rental Price of Book *"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <EditText
+                android:id="@+id/book_address_torent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:lines="3"
+                android:layout_marginTop="8dp"
+                android:gravity="start"
+                android:isScrollContainer="true"
+                android:inputType="textMultiLine"
+                android:hint="Address *"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
+
+            <Button
+                android:id="@+id/save_btn"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="save"
+                android:textStyle="bold"
+                android:background="@drawable/button_round"
+                android:layout_margin="16dp"
+                android:textColor="@color/colorAccent"/>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
